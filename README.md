@@ -1,8 +1,6 @@
 # Rmagick::ExtractObject
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rmagick/extract_object`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+  Object detection from image. rmagick enhancement class.
 
 ## Installation
 
@@ -22,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Magick::ExtractObject.configure do |config|
+  config.slope_threshold = "10000000"
+  config.mask_color = "red"
+end
+
+image = Magick::ExtractObject::Image.new("spec/fixtures/test.jpg")
+image.edge.write("edge.jpg") # edge image
+image.mask.write("mask.jpg") # mask image
+image.transparent_background.write("transparent_background.png") # transparent background image
+```
 
 ## Development
 
