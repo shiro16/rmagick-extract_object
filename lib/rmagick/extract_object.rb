@@ -16,7 +16,7 @@ module Rmagick
     attr_accessor :image
 
     def initialize(path = nil)
-      @image = Magick::ImageList.new(path) if path
+      @image = Magick::ImageList.new(path).first if path
     end
 
     def transparent_background
