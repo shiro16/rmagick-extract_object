@@ -5,7 +5,7 @@ require 'rmagick/extract_object/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rmagick-extract_object"
-  spec.version       = Rmagick::ExtractObject::VERSION
+  spec.version       = Magick::ExtractObject::VERSION
   spec.authors       = ["shiro16"]
   spec.email         = ["nyanyanyawan24@gmail.com"]
 
