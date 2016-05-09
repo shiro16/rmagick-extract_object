@@ -10,26 +10,28 @@ module Magick
       end
 
       def transparent_background
-        image = Magick::ImageList.new << image
+        mask_image = mask
+
+        image = Magick::ImageList.new << @image
         image.alpha = Magick::ActivateAlphaChannel
-        image.fx("r", Magick::AlphaChannel).composite(mask, Magick::CenterGravity, Magick::CopyOpacityCompositeOp)
+        image.fx("r", Magick::AlphaChannel).composite(mask_image, Magick::CenterGravity, Magick::CopyOpacityCompositeOp)
       end
 
       def edge
         white = Magick::Pixel.new(255*256, 255*256, 255*256)
         black = Magick::Pixel.new(0, 0, 0)
 
-        image = @image.dup
+        image = @image.copy
         image.rows.times do |x|
           image.columns.times do |y|
             current = image.pixel_color(x, y)
             next_x  = image.pixel_color(x + 1, y)
             next_y  = image.pixel_color(x, y + 1)
 
-            x = { r: current.red - next_x.red, g: current.green - next_x.green, b: current.blue - next_x.blue }
-            y = { r: current.red - next_y.red, g: current.green - next_y.green, b: current.blue - next_y.blue }
+            diff_x = { r: current.red - next_x.red, g: current.green - next_x.green, b: current.blue - next_x.blue }
+            diff_y = { r: current.red - next_y.red, g: current.green - next_y.green, b: current.blue - next_y.blue }
 
-            slope = [x[:r]**2 + y[:r]**2, x[:r]**2 + y[:r]**2, x[:r]**2 + y[:r]**2]
+            slope = [diff_x[:r]**2 + diff_y[:r]**2, diff_x[:r]**2 + diff_y[:r]**2, diff_x[:r]**2 + diff_y[:r]**2]
             if slope.inject(:+) > config.threshold
               image.pixel_color(x, y, black)
             else
