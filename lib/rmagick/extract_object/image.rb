@@ -37,7 +37,6 @@ module Magick
             else
               image.pixel_color(x, y, white)
             end
-            puts "#{x}x#{y}"
           end
         end
         image
