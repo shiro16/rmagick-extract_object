@@ -1,11 +1,19 @@
 require 'spec_helper'
 
-describe Rmagick::ExtractObject do
+describe Magick::ExtractObject do
   it 'has a version number' do
-    expect(Rmagick::ExtractObject::VERSION).not_to be nil
+    expect(Magick::ExtractObject::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  describe '.configure' do
+    before do
+      Magick::ExtractObject.configure do |config|
+        config.mask_color = "blue"
+        config.slope      = 10
+      end
+    end
+
+    it { expect(Magick::ExtractObject.config.mask_color).to eq("blue") }
+    it { expect(Magick::ExtractObject.config.slope).to eq(10) }
   end
 end
