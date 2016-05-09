@@ -32,7 +32,7 @@ module Magick
             diff_y = { r: current.red - next_y.red, g: current.green - next_y.green, b: current.blue - next_y.blue }
 
             slope = [diff_x[:r]**2 + diff_y[:r]**2, diff_x[:r]**2 + diff_y[:r]**2, diff_x[:r]**2 + diff_y[:r]**2]
-            if slope.inject(:+) > config.threshold
+            if slope.inject(:+) > config.slope
               image.pixel_color(x, y, black)
             else
               image.pixel_color(x, y, white)
