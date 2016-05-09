@@ -22,8 +22,8 @@ module Magick
         black = Magick::Pixel.new(0, 0, 0)
 
         image = @image.copy
-        image.rows.times do |x|
-          image.columns.times do |y|
+        image.columns.times do |x|
+          image.rows.times do |y|
             current = image.pixel_color(x, y)
             next_x  = image.pixel_color(x + 1, y)
             next_y  = image.pixel_color(x, y + 1)
@@ -37,6 +37,7 @@ module Magick
             else
               image.pixel_color(x, y, white)
             end
+            puts "#{x}x#{y}"
           end
         end
         image
