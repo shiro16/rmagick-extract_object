@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ```ruby
 Magick::ExtractObject.configure do |config|
-  config.slope_threshold = "10000000"
+  config.slope      = 10000000
   config.mask_color = "red"
 end
 
