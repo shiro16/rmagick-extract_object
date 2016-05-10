@@ -5,8 +5,14 @@ module Magick
     class Image
       attr_accessor :image
 
-      def initialize(path = nil)
-        @image = Magick::ImageList.new(path).first if path
+      def initialize(path)
+        @path  = path
+
+        unless config.content_type.include?(type_from_mime_magic)
+          raise "invalid content type"
+        end
+
+        @image = Magick::ImageList.new(@path).first
       end
 
       def transparent_background
@@ -52,6 +58,12 @@ module Magick
       private
       def config
         Magick::ExtractObject.config
+      end
+
+      def type_from_mime_magic
+        @type_from_mime_magic ||= if mimemagic = MimeMagic.by_magic(File.open(@path))
+                                    mimemagic.type
+                                  end
       end
     end
   end

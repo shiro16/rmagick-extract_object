@@ -1,3 +1,5 @@
+require 'rmagick'
+require 'mimemagic'
 require "rmagick/extract_object/version"
 require "rmagick/extract_object/config"
 require "rmagick/extract_object/image"
