@@ -15,10 +15,12 @@ module Magick
         @image = Magick::ImageList.new(@path).first
       end
 
-      def transparent_background
+      def transparent_background(base_image = nil)
         mask_image = mask
 
-        image = Magick::ImageList.new << @image
+        base_image = @image if base_image.nil?
+
+        image = Magick::ImageList.new << base_image
         image.alpha = Magick::ActivateAlphaChannel
         image.fx("r", Magick::AlphaChannel).composite(mask_image, Magick::CenterGravity, Magick::CopyOpacityCompositeOp)
       end
