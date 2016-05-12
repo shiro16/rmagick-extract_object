@@ -1,5 +1,6 @@
 require 'rmagick'
 require 'mimemagic'
+require 'open-uri'
 require "rmagick/extract_object/version"
 require "rmagick/extract_object/config"
 require "rmagick/extract_object/image"

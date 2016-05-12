@@ -12,7 +12,9 @@ module Magick
           raise "invalid content type"
         end
 
-        @image = Magick::ImageList.new(@path).first
+        image_list = Magick::ImageList.new
+        image_list.from_blob(blob)
+        @image = image_list.first
       end
 
       def transparent_background(base_image = nil)
@@ -63,9 +65,13 @@ module Magick
       end
 
       def type_from_mime_magic
-        @type_from_mime_magic ||= if mimemagic = MimeMagic.by_magic(File.open(@path))
+        @type_from_mime_magic ||= if mimemagic = MimeMagic.by_magic(blob)
                                     mimemagic.type
                                   end
+      end
+
+      def blob
+        @blob ||= open(@path).read
       end
     end
   end
