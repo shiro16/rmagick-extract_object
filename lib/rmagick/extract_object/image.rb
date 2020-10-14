@@ -23,7 +23,7 @@ module Magick
         base_image = @image if base_image.nil?
 
         image = Magick::ImageList.new << base_image
-        image.alpha = Magick::ActivateAlphaChannel
+        image.alpha Magick::ActivateAlphaChannel
         image.fx("r", Magick::AlphaChannel).composite(mask_image, Magick::CenterGravity, Magick::CopyOpacityCompositeOp)
       end
 
